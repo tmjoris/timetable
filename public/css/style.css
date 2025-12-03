@@ -40,7 +40,7 @@ header {
     align-items: center;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #438dee;
+    color: #013220;
 }
 
 .logo i {
@@ -108,7 +108,7 @@ nav ul li a:hover {
 }
 
 .btn:hover {
-    background: #3a9bbf;
+    background: #013220;
 }
 
 .create {
@@ -131,6 +131,7 @@ nav ul li a:hover {
 .create .container .join-us {
     font-size: 4rem;
     text-align: left;
+    color: #013220;
 }
 
 
@@ -198,7 +199,7 @@ nav ul li a:hover {
 .step-number {
     width: 60px;
     height: 60px;
-    background: #438dee;
+    background: #013220;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -224,7 +225,7 @@ nav ul li a:hover {
 
 /* Footer */
 footer {
-    background: black;
+    background: /*#013220*/black;
     color: white;
     padding: 60px 0 20px;
 }

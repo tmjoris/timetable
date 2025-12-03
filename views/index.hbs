@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduSchedule Pro | Timetable Generator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/favicon.ico">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>EduSchedule Pro</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Smart School Timetable Generator</h1>
+            <p>Create optimized schedules that meet all your constraints with our intelligent timetable generator.</p>
+            <a href="#" class="btn" id="generate-btn">
+                <i class="fas fa-magic"></i> Generate Timetable
+            </a>
+            <a href="#features" class="btn">
+                <i class="fas fa-play-circle"></i> Learn More
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features</h2>
+                <p>Everything you need to create the perfect schedule</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>Smart Generation</h3>
+                    <p>Automatically creates optimized timetables that respect all constraints.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Easy Editing</h3>
+                    <p>Simple interface to adjust generated timetables to your needs.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <h3>Constraint Validation</h3>
+                    <p>Ensures your timetable meets all requirements before finalization.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-export"></i>
+                    </div>
+                    <h3>Export Options</h3>
+                    <p>Download your timetable in multiple formats for easy sharing.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+                <p>Creating the perfect timetable in just a few steps</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Enter Details</h3>
+                    <p>Input your school's requirements and constraints.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Generate</h3>
+                    <p>Our system creates an optimized timetable automatically.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Customize</h3>
+                    <p>Make adjustments with our easy-to-use editor.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Save & Use</h3>
+                    <p>Save your timetable and implement it across your school.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Create Your Timetable?</h2>
+            <p>Join schools using our generator to save time and reduce conflicts.</p>
+            <a href="#" class="btn" id="cta-generate-btn">
+                <i class="fas fa-calendar-plus"></i> Get Started Now
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>EduSchedule Pro</h3>
+                    <p>The smart solution for school timetable management.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> support@eduschedule.com</li>
+                        <li><i class="fas fa-phone"></i>+254123456789</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 EduSchedule Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Generate Timetable Modal -->
+    <div class="modal" id="generate-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h2>Generate New Timetable</h2>
+            <p>Create a new optimized timetable for your school.</p>
+            <p>Would you like to proceed?</p>
+            <div style="margin-top: 30px;">
+                <a href="#" class="btn" id="confirm-generate">
+                    <i class="fas fa-calendar-check"></i> Generate Now
+                </a>
+                <a href="#" class="btn" id="cancel-generate">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="success-message">
+        <i class="fas fa-check-circle"></i> Timetable generation started!
+    </div>
+
+    <!-- JavaScript file link --->
+    <script src="js/script.js"></script>
+</body>
+</html>

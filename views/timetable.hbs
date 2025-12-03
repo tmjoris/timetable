@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Timetable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+        }
+
+        .timetable-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 2px solid #e2e8f0;
+            padding: 15px;
+            text-align: center;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        td {
+            background: white;
+            min-width: 150px;
+            position: relative;
+        }
+
+        .time-slot {
+            background: #f7fafc;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .subject-cell {
+            cursor: pointer;
+            transition: all 0.2s;
+            min-height: 60px;
+        }
+
+        .subject-cell:hover {
+            background: #edf2f7;
+        }
+
+        .subject-cell.editing {
+            background: #fef5e7;
+        }
+
+        .subject-name {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .teacher-name {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .empty-slot {
+            color: #cbd5e0;
+            font-style: italic;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background: #c6f6d5;
+            color: #22543d;
+            border: 1px solid #48bb78;
+        }
+
+        .alert-error {
+            background: #fed7d7;
+            color: #742a2a;
+            border: 1px solid #f56565;
+        }
+
+        .alert-info {
+            background: #bee3f8;
+            color: #2c5282;
+            border: 1px solid #4299e1;
+        }
+
+        .no-timetable {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .no-timetable h2 {
+            color: #4a5568;
+            margin-bottom: 15px;
+        }
+
+        .no-timetable p {
+            color: #718096;
+            margin-bottom: 25px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Subject color coding */
+        .Languages { background: #fef5e7; }
+        .Sciences { background: #e8f5e9; }
+        .Arts { background: #fce4ec; }
+        .Sports { background: #e3f2fd; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 School Weekly Timetable</h1>
+            <p>Click on any cell to edit</p>
+        </header>
+
+        <div class="controls">
+            <button class="btn btn-primary" onclick="generateTimetable()">
+                ✨ Generate New Timetable
+            </button>
+            <button class="btn btn-success" onclick="saveTimetable()">
+                💾 Save Changes
+            </button>
+            <button class="btn btn-secondary" onclick="window.location.href='/'">
+                🏠 Back to Home
+            </button>
+        </div>
+
+        <div id="alert-container"></div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Generating timetable...</p>
+        </div>
+
+        {{#if hasData}}
+        <div class="timetable-wrapper">
+            <table id="timetable">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                    </tr>
+                </thead>
+                <tbody id="timetable-body">
+                    <!-- Time slots will be generated here -->
+                </tbody>
+            </table>
+        </div>
+        {{else}}
+        <div class="no-timetable">
+            <h2>No Timetable Found</h2>
+            <p>Click the button above to generate your first timetable!</p>
+        </div>
+        {{/if}}
+    </div>
+
+    <script>
+        const subjects = {{{json subjects}}};
+        let currentTimetable = {{{json timetable}}};
+        const timeSlots = [
+            "8:00 - 9:00",
+            "9:00 - 10:00",
+            "10:00 - 11:00",
+            "11:00 - 12:00",
+            "12:00 - 1:00",
+            "1:00 - 2:00"
+        ];
+        const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+        function showAlert(message, type = 'info') {
+            const container = document.getElementById('alert-container');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.display = 'block';
+            container.appendChild(alert);
+            
+            setTimeout(() => {
+                alert.remove();
+            }, 5000);
+        }
+
+        function getTeacherForSubject(subjectName) {
+            const subject = subjects.find(s => s.name === subjectName);
+            return subject ? subject.teacher : '';
+        }
+
+        function getSubjectCategory(subjectName) {
+            const subject = subjects.find(s => s.name === subjectName);
+            return subject ? subject.category : '';
+        }
+
+        function renderTimetable() {
+            const tbody = document.getElementById('timetable-body');
+            if (!tbody) return;
+            
+            tbody.innerHTML = '';
+
+            for (let slot = 0; slot < 6; slot++) {
+                const row = document.createElement('tr');
+                
+                // Time column
+                const timeCell = document.createElement('td');
+                timeCell.className = 'time-slot';
+                timeCell.textContent = timeSlots[slot];
+                row.appendChild(timeCell);
+
+                // Day columns
+                days.forEach(day => {
+                    const cell = document.createElement('td');
+                    cell.className = 'subject-cell';
+                    cell.dataset.day = day;
+                    cell.dataset.slot = slot;
+
+                    const subject = currentTimetable[day] ? currentTimetable[day][slot] : '';
+                    
+                    if (subject) {
+                        const category = getSubjectCategory(subject);
+                        cell.classList.add(category);
+                        cell.innerHTML = `
+                            <div class="subject-name">${subject}</div>
+                            <div class="teacher-name">${getTeacherForSubject(subject)}</div>
+                        `;
+                    } else {
+                        cell.innerHTML = '<div class="empty-slot">Free</div>';
+                    }
+
+                    cell.onclick = () => editCell(cell, day, slot);
+                    row.appendChild(cell);
+                });
+
+                tbody.appendChild(row);
+            }
+        }
+
+        function editCell(cell, day, slot) {
+            if (cell.querySelector('select')) return; // Already editing
+
+            const currentSubject = currentTimetable[day] ? currentTimetable[day][slot] : '';
+            
+            const select = document.createElement('select');
+            select.innerHTML = '<option value="">-- Free --</option>';
+            
+            subjects.forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub.name;
+                option.textContent = `${sub.name} (${sub.teacher})`;
+                if (sub.name === currentSubject) {
+                    option.selected = true;
+                }
+                select.appendChild(option);
+            });
+
+            cell.innerHTML = '';
+            cell.appendChild(select);
+            cell.classList.add('editing');
+            select.focus();
+
+            select.onchange = () => {
+                if (!currentTimetable[day]) {
+                    currentTimetable[day] = ["", "", "", "", "", ""];
+                }
+                currentTimetable[day][slot] = select.value;
+                cell.classList.remove('editing');
+                renderTimetable();
+            };
+
+            select.onblur = () => {
+                cell.classList.remove('editing');
+                renderTimetable();
+            };
+        }
+
+        async function generateTimetable() {
+            document.getElementById('loading').style.display = 'block';
+            
+            try {
+                const response = await fetch('/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    currentTimetable = data.timetable;
+                    renderTimetable();
+                    showAlert('Timetable generated successfully!', 'success');
+                } else {
+                    showAlert('Error: ' + data.error, 'error');
+                }
+            } catch (error) {
+                showAlert('Failed to generate timetable', 'error');
+            } finally {
+                document.getElementById('loading').style.display = 'none';
+            }
+        }
+
+        async function saveTimetable() {
+            try {
+                // Validate first
+                const validationResponse = await fetch('/validate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ timetable: currentTimetable })
+                });
+                
+                const validation = await validationResponse.json();
+                
+                if (!validation.valid) {
+                    showAlert('Validation errors: ' + validation.errors.join(', '), 'error');
+                    return;
+                }
+
+                // Save if valid
+                const response = await fetch('/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ timetable: currentTimetable })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('Timetable saved successfully!', 'success');
+                } else {
+                    showAlert('Error saving timetable', 'error');
+                }
+            } catch (error) {
+                showAlert('Failed to save timetable', 'error');
+            }
+        }
+
+        // Initial render
+        if (Object.keys(currentTimetable).length > 0) {
+            renderTimetable();
+        }
+    </script>
+</body>
+</html>

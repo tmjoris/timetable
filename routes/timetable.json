@@ -1,0 +1,42 @@
+{
+  "Monday": [
+    "Physics",
+    "English",
+    "Swahili",
+    "Art",
+    "PE",
+    "Art"
+  ],
+  "Tuesday": [
+    "Mathematics",
+    "English",
+    "Physics",
+    "English",
+    "Art",
+    "English"
+  ],
+  "Wednesday": [
+    "Art",
+    "PE",
+    "Swahili",
+    "PE",
+    "Art",
+    "Swahili"
+  ],
+  "Thursday": [
+    "PE",
+    "Swahili",
+    "Physics",
+    "PE",
+    "Physics",
+    "Physics"
+  ],
+  "Friday": [
+    "Mathematics",
+    "English",
+    "Mathematics",
+    "Mathematics",
+    "Swahili",
+    "Mathematics"
+  ]
+}

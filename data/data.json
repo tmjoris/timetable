@@ -1,0 +1,40 @@
+{
+  "subjects": [
+    {
+      "name": "English",
+      "category": "Languages",
+      "teacher": "Ms. Johnson",
+      "hoursPerWeek": 5
+    },
+    {
+      "name": "Swahili",
+      "category": "Languages",
+      "teacher": "Mr. Mwangi",
+      "hoursPerWeek": 5
+    },
+    {
+      "name": "Mathematics",
+      "category": "Sciences",
+      "teacher": "Dr. Patel",
+      "hoursPerWeek": 5
+    },
+    {
+      "name": "Physics",
+      "category": "Sciences",
+      "teacher": "Mr. Chen",
+      "hoursPerWeek": 5
+    },
+    {
+      "name": "Art",
+      "category": "Arts",
+      "teacher": "Ms. Williams",
+      "hoursPerWeek": 5
+    },
+    {
+      "name": "PE",
+      "category": "Sports",
+      "teacher": "Coach Brown",
+      "hoursPerWeek": 5
+    }
+  ]
+}

@@ -111,6 +111,18 @@ nav ul li a:hover {
     background: #3a9bbf;
 }
 
+.create{
+    position: relative;
+    background-color: (180deg, #d9d9d9, #f0f0f0 20%);
+}
+
+.join-us{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: +22px;
+}
+
 /* Features Section */
 .features {
     background: white;
